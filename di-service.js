@@ -7,7 +7,7 @@ const SERVICE_DESTROY = Symbol('Service destroy method');
 /**
  * Provide class instances graph with dependency injection and caching
  * */
-class ServiceGraph {
+class DIService {
 
     #servicesMap = new Map();
 
@@ -119,7 +119,7 @@ class ServiceGraph {
 }
 
 module.exports = {
-    ServiceGraph,
+    DIService,
     SERVICE_MULTIPLE,
     SERVICE_REQUIRE,
     SERVICE_INIT,

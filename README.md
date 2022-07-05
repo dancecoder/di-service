@@ -1,5 +1,5 @@
-![This is an image](service-graph.svg)
-# Service GRAPH
+![This is an image](di-service.svg)
+# DI Service
 Really simple dependency injection solution for JavaScript
 
 ## Features
@@ -24,7 +24,7 @@ module.exports = { Settings };
 Use the class as a dependency
 ```javascript
 const { Settings } = require('./settings');
-const { SERVICE_REQUIRE } = require('service-graph');
+const { SERVICE_REQUIRE } = require('di-service');
 
 class DBConnection {
     
@@ -41,10 +41,10 @@ module.exports = { DBConnection };
 
 Get service instance
 ```javascript
-const { ServiceGraph } = require('service-graph');
+const { DiService } = require('di-service');
 const { DBConnection } = require('./db-connection');
 
-const services = new ServiceGraph();
+const services = new DiService();
 const connection = await services.getInstance(DBConnection);
 console.log(connection.settings.constructor.name); // -> Settings
 ```
