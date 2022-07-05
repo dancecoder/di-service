@@ -6,7 +6,7 @@ Really simple dependency injection solution for JavaScript
 * Implements DI pattern
 * Pure JavaScript implementation (+ TypeScript declaration file) 
 * Zero dependencies
-* Do not impose any system architecture, may be introduced to any JavascriptProject (FE and BE both)
+* Do not impose any system architecture, may be introduced to any JavaScript project (FE and BE both)
 
 ## Example
 Declare any class
