@@ -15,7 +15,7 @@
     "inversion of control",
     "service"
   ],
-  "repository": "github:dancecoder/service-graph",
+  "repository": "github:dancecoder/di-service",
   "main": "index.js",
   "scripts": {
     "test": "node --test"
