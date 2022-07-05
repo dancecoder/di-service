@@ -44,6 +44,9 @@ const { DIService } = require('di-service');
 const { DBConnection } = require('./db-connection');
 
 const services = new DIService();
-const connection = await services.getInstance(DBConnection);
-console.log(connection.settings.constructor.name); // -> Settings
+const connection1 = await services.getInstance(DBConnection);
+const connection2 = await services.getInstance(DBConnection);
+console.log(connection1 === connection2); // -> true
+console.log(connection1.settings === connection2.settings); // -> true
+console.log(connection1.settings.constructor.name); // -> Settings
 ```
