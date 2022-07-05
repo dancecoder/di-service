@@ -41,10 +41,10 @@ module.exports = { DBConnection };
 
 Get service instance
 ```javascript
-const { DiService } = require('di-service');
+const { DIService } = require('di-service');
 const { DBConnection } = require('./db-connection');
 
-const services = new DiService();
+const services = new DIService();
 const connection = await services.getInstance(DBConnection);
 console.log(connection.settings.constructor.name); // -> Settings
 ```
