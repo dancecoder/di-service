@@ -1,0 +1,29 @@
+{
+  "name": "service-graph",
+  "version": "0.0.1",
+  "description": "Really simple dependency injection solution for JavaScript",
+  "author": {
+    "email": "dancecoder@gmail.com",
+    "name": "Dmitry Dutikov"
+  },
+  "license": "MIT",
+  "keywords": [
+    "DI",
+    "IoC",
+    "dependency injection",
+    "dependency inversion",
+    "inversion of control",
+    "service"
+  ],
+  "repository": "github:dancecoder/service-graph",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.1"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
