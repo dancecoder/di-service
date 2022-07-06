@@ -1,6 +1,6 @@
 {
   "name": "di-service",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Really simple dependency injection solution for JavaScript",
   "author": {
     "email": "dancecoder@gmail.com",
