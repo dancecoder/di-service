@@ -1,4 +1,4 @@
-![This is an image](di-service.svg)
+![DI Service](di-service.svg)
 # DI Service
 Really simple dependency injection solution for JavaScript
 
@@ -50,3 +50,6 @@ console.log(connection1 === connection2); // -> true
 console.log(connection1.settings === connection2.settings); // -> true
 console.log(connection1.settings.constructor.name); // -> Settings
 ```
+
+## Used by
+[<img src="https://avatars.githubusercontent.com/u/50610858?s=100" width="100" height="100" />](https://bllink.co/en/)
