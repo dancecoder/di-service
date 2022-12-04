@@ -1,6 +1,6 @@
 {
   "name": "di-service",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Really simple dependency injection solution for JavaScript",
   "author": {
     "email": "dancecoder@gmail.com",
@@ -26,6 +26,6 @@
     "@types/node": "^18.0.1"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   }
 }
