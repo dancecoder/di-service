@@ -12,8 +12,9 @@ class DIService {
     #servicesMap = new Map();
 
     /**
-     * @template {{ new (...params: any) } | Function} T
-     * @param {{ new (...params: any) }[]} deps
+     * @template R
+     * @template {ServiceClz | InjectableFunction<R>} T
+     * @param {ServiceClz[]} deps
      * @param {T} ctor
      * @return T
      * */
@@ -23,7 +24,8 @@ class DIService {
     }
 
     /**
-     * @param {(...params) => T | Promise<T>} fn
+     * @template T
+     * @param {InjectableFunction<T>} fn
      * @param {any[]} [params=[]] pre defined parameters
      * @return {Promise<T>}
      * */

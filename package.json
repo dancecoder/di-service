@@ -1,6 +1,6 @@
 {
   "name": "di-service",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Really simple dependency injection solution for JavaScript",
   "author": {
     "email": "dancecoder@gmail.com",
@@ -17,8 +17,8 @@
   ],
   "repository": "github:dancecoder/di-service",
   "main": "./index.js",
-  "types": "./index.d.ts",
-  "typings": "./index.d.ts",
+  "types": "./types/index.d.ts",
+  "typings": "./types/index.d.ts",
   "scripts": {
     "test": "node --test"
   },
