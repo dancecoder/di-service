@@ -52,9 +52,9 @@ class DIService {
     }
 
     /**
-     * @template {{ new (...params: any) }} T
+     * @template {ServiceClz} T
      * @param {T} ctor
-     * @return {InstanceType<T>}
+     * @return {Promise<InstanceType<T>>}
      * */
     async getInstance(ctor) {
         if (ctor[SERVICE_MULTIPLE] === true) {
@@ -68,9 +68,9 @@ class DIService {
     }
 
     /**
-     * @template {{ new (...params: any) }} T
+     * @template {ServiceClz} T
      * @param {T} ctor
-     * @return {InstanceType<T>}
+     * @return {Promise<InstanceType<T>>}
      * */
     async #createInstance(ctor) {
         let result = null;
@@ -116,6 +116,25 @@ class DIService {
         return result;
     }
 
+    /**
+     * @template {ServiceClz} T
+     * @param {T} ctor
+     * @return {Promise<void>}
+     * */
+    async deleteInstance(ctor) {
+        for (const dep of this.#servicesMap.keys()) {
+            if (dep[SERVICE_REQUIRE] != null && dep[SERVICE_REQUIRE].some(rq => rq === ctor)) {
+                await this.deleteInstance(dep);
+            }
+        }
+        const inst = this.#servicesMap.get(ctor);
+        if (inst != null) {
+            if (typeof inst[SERVICE_DESTROY] === 'function') {
+                await inst[SERVICE_DESTROY]();
+            }
+            this.#servicesMap.delete(ctor);
+        }
+    }
 }
 
 module.exports = {

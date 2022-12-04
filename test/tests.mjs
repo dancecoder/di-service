@@ -1,6 +1,6 @@
 import test from 'node:test';
 import { strict as assert } from 'assert';
-import { DIService, SERVICE_REQUIRE } from '../di-service.js';
+import {DIService, SERVICE_DESTROY, SERVICE_REQUIRE} from '../di-service.js';
 
 class A {}
 class B {
@@ -112,4 +112,49 @@ test('it should decorate function or class', async () => {
 
     const inst = await services.getInstance(clz);
     assert.equal(inst.a instanceof A, true);
+});
+
+test('it should call service instance destructor on DIService destroy', async () => {
+    let destroyed = false;
+    const destroyable = class {
+        [SERVICE_DESTROY] = function() {
+            destroyed = true;
+        }
+    }
+    const services = new DIService();
+    const instance = await services.getInstance(destroyable);
+    await services.destroy();
+    assert.equal(destroyed, true);
+});
+
+test('it should remove instance and all dependants graph from internal cache', async () => {
+    let destroyed1 = false;
+    let destroyed2 = false;
+    let constructed1 = 0;
+    let constructed2 = 0;
+    const destroyable1 = class {
+        constructor() {
+            constructed1++;
+        }
+        [SERVICE_DESTROY]() {
+            destroyed1 = true;
+        };
+    }
+    const destroyable2 = class {
+        static [SERVICE_REQUIRE] = [ destroyable1 ];
+        constructor() {
+            constructed2++;
+        }
+        [SERVICE_DESTROY]() {
+            destroyed2 = true;
+        };
+    }
+    const services = new DIService();
+    const instance0 = await services.getInstance(destroyable2);
+    await services.deleteInstance(destroyable1); // removing destroyable1 and expect all requiring instances will be removed too
+    const instance1 = await services.getInstance(destroyable2);
+    assert.equal(destroyed1, true);
+    assert.equal(destroyed2, true);
+    assert.equal(constructed1, 2);
+    assert.equal(constructed2, 2);
 });
