@@ -13,8 +13,8 @@ class DIService {
 
     /**
      * @template R
-     * @template {ServiceClz | InjectableFunction<R>} T
-     * @param {ServiceClz[]} deps
+     * @template {ServiceConstructor | InjectableFunction<R>} T
+     * @param {ServiceConstructor[]} deps
      * @param {T} ctor
      * @return T
      * */
@@ -40,7 +40,6 @@ class DIService {
     }
 
     /**
-     * @template T
      * @return {Promise<void>}
      * */
     async destroy() {
@@ -54,7 +53,7 @@ class DIService {
     }
 
     /**
-     * @template {ServiceClz} T
+     * @template {ServiceConstructor} T
      * @param {T} ctor
      * @return {Promise<InstanceType<T>>}
      * */
@@ -70,7 +69,7 @@ class DIService {
     }
 
     /**
-     * @template {ServiceClz} T
+     * @template {ServiceConstructor} T
      * @param {T} ctor
      * @return {Promise<InstanceType<T>>}
      * */
@@ -119,8 +118,7 @@ class DIService {
     }
 
     /**
-     * @template {ServiceClz} T
-     * @param {T} ctor
+     * @param {ServiceConstructor} ctor
      * @return {Promise<void>}
      * */
     async deleteInstance(ctor) {
