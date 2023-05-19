@@ -1,6 +1,6 @@
 import test from 'node:test';
 import { strict as assert } from 'assert';
-import {DIService, SERVICE_DESTROY, SERVICE_REQUIRE} from '../di-service.js';
+import {DIService, SERVICE_DESTROY, SERVICE_REQUIRE} from '../di-service.mjs';
 
 class A {}
 class B {

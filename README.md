@@ -4,9 +4,10 @@ Really simple dependency injection solution for JavaScript
 
 ## Features
 * Implements DI pattern
+* Do not impose any system architecture, may be introduced to any JavaScript project (FE and BE both)
 * Pure JavaScript implementation (+ TypeScript declaration file) 
 * Zero dependencies
-* Do not impose any system architecture, may be introduced to any JavaScript project (FE and BE both)
+* ES Module and CommonJS hybrid module
 
 ## Example
 Declare any class

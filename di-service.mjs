@@ -1,13 +1,13 @@
 
-const SERVICE_MULTIPLE = Symbol('Do not cache instance');
-const SERVICE_REQUIRE = Symbol('Array of required services (classes)');
-const SERVICE_INIT = Symbol('Service initialize method');
-const SERVICE_DESTROY = Symbol('Service destroy method');
+export const SERVICE_MULTIPLE = Symbol('Do not cache instance');
+export const SERVICE_REQUIRE = Symbol('Array of required services (classes)');
+export const SERVICE_INIT = Symbol('Service initialize method');
+export const SERVICE_DESTROY = Symbol('Service destroy method');
 
 /**
  * Provide class instances graph with dependency injection and caching
  * */
-class DIService {
+export class DIService {
 
     #servicesMap = new Map();
 
@@ -136,11 +136,3 @@ class DIService {
         }
     }
 }
-
-module.exports = {
-    DIService,
-    SERVICE_MULTIPLE,
-    SERVICE_REQUIRE,
-    SERVICE_INIT,
-    SERVICE_DESTROY,
-};
