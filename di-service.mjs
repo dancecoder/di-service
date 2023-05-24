@@ -4,11 +4,44 @@ export const SERVICE_REQUIRE = Symbol('Array of required services (classes)');
 export const SERVICE_INIT = Symbol('Service initialize method');
 export const SERVICE_DESTROY = Symbol('Service destroy method');
 
+const LOCKER_SUBS = Symbol();
+const LOCKER_NEXT = Symbol();
+
+class Locker {
+
+    static #LOCK = class {
+        #cb;
+        [LOCKER_NEXT]() { this.#cb() }
+        [LOCKER_SUBS](fn) { this.#cb = fn };
+    }
+
+    #promises = [];
+
+    constructor() {
+    }
+
+    getLock() {
+        const lock = new Locker.#LOCK();
+        this.#promises.push(new Promise((r) => lock[LOCKER_SUBS](r)));
+        return lock;
+    }
+
+    async wait() {
+        const awaitable = this.#promises.slice(0, this.#promises.length-1);
+        return await Promise.all(awaitable);
+    }
+
+    unlock(lock) {
+        lock[LOCKER_NEXT]();
+    }
+}
+
 /**
  * Provide class instances graph with dependency injection and caching
  * */
 export class DIService {
 
+    #locker = new Locker();
     #servicesMap = new Map();
 
     /**
@@ -61,11 +94,17 @@ export class DIService {
         if (ctor[SERVICE_MULTIPLE] === true) {
             return this.#createInstance(ctor);
         }
+        const lock = this.#locker.getLock();
+        await this.#locker.wait();
         if (!this.#servicesMap.has(ctor)) {
             const inst = await this.#createInstance(ctor);
             this.#servicesMap.set(ctor, inst);
+            this.#locker.unlock(lock);
+            return inst;
         }
-        return this.#servicesMap.get(ctor);
+        const inst = this.#servicesMap.get(ctor);
+        this.#locker.unlock(lock);
+        return inst;
     }
 
     /**

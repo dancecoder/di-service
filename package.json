@@ -28,6 +28,7 @@
   "typings": "./types/index.d.ts",
   "scripts": {
     "test": "node --test",
+    "test:only": "node --test --test-only",
     "build": "ascjs ./di-service.mjs ./di-service.cjs"
   },
   "devDependencies": {

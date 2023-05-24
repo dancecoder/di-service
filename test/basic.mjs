@@ -1,6 +1,6 @@
 import test from 'node:test';
-import { strict as assert } from 'assert';
-import {DIService, SERVICE_DESTROY, SERVICE_REQUIRE} from '../di-service.mjs';
+import { strict as assert } from 'node:assert';
+import {DIService, SERVICE_DESTROY, SERVICE_INIT, SERVICE_REQUIRE} from '../di-service.mjs';
 
 class A {}
 class B {
@@ -114,6 +114,19 @@ test('it should decorate function or class', async () => {
     assert.equal(inst.a instanceof A, true);
 });
 
+test('id should cal service initialization method', async () => {
+    let initialized = false;
+    const Init = class {
+        [SERVICE_INIT] = function() {
+            initialized = true;
+        }
+    }
+    const services = new DIService();
+    const instance = await services.getInstance(Init);
+    assert.equal(initialized, true);
+    assert.equal(instance instanceof Init, true);
+});
+
 test('it should call service instance destructor on DIService destroy', async () => {
     let destroyed = false;
     const destroyable = class {
@@ -125,6 +138,7 @@ test('it should call service instance destructor on DIService destroy', async ()
     const instance = await services.getInstance(destroyable);
     await services.destroy();
     assert.equal(destroyed, true);
+    assert.equal(instance instanceof destroyable, true);
 });
 
 test('it should remove instance and all dependants graph from internal cache', async () => {
@@ -157,4 +171,7 @@ test('it should remove instance and all dependants graph from internal cache', a
     assert.equal(destroyed2, true);
     assert.equal(constructed1, 2);
     assert.equal(constructed2, 2);
+    assert.equal(instance0 instanceof destroyable2, true);
+    assert.equal(instance1 instanceof destroyable2, true);
+
 });
