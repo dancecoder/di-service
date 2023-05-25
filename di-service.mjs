@@ -22,7 +22,11 @@ class Locker {
 
     getLock() {
         const lock = new Locker.#LOCK();
-        this.#promises.push(new Promise((r) => lock[LOCKER_SUBS](r)));
+        const length = this.#promises.length;
+        this.#promises.push(new Promise((r) => lock[LOCKER_SUBS](() => {
+            this.#promises.splice(0, length);
+            r();
+        })));
         return lock;
     }
 
