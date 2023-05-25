@@ -7,15 +7,13 @@ let counter = 0;
 
 class TestClass {
     constructor() {
-        counter++;
-        this.id = counter;
+        this.id = ++counter;
     }
 
     async [SERVICE_INIT]() {
         return new Promise(r => setTimeout(r, 42));
     }
 }
-
 
 test('getInstance is async circle safe', async () => {
     counter = 0;
